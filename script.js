@@ -7,15 +7,15 @@ class ShoppingCart {
         this.cartModal = null;
     }
 
-    addItem(product) {
+    addItem(product, quantity = 1) {
         const sizeRadio = document.querySelector(`input[name="size-${product.id}"]:checked`);
         const size = sizeRadio ? sizeRadio.value : 'N/A';
         
         const existingItem = this.items.find(item => item.id === product.id && item.size === size);
         if (existingItem) {
-            existingItem.quantity += 1;
+            existingItem.quantity += quantity;
         } else {
-            this.items.push({ ...product, quantity: 1, size: size });
+            this.items.push({ ...product, quantity: quantity, size: size });
         }
         this.saveCart();
         this.updateCartIcon();
@@ -571,8 +571,13 @@ document.addEventListener('DOMContentLoaded', () => {
         button.addEventListener('click', () => {
             const productId = parseInt(button.getAttribute('data-product-id'));
             const product = products.find(p => p.id === productId);
+            let quantity = 1;
+            const quantityInput = document.getElementById(`quantity-${productId}`);
+            if (quantityInput) {
+                quantity = parseInt(quantityInput.value) || 1;
+            }
             if (product) {
-                cart.addItem(product);
+                cart.addItem(product, quantity);
                 cart.renderCart(); // Update cart modal if it's open
             }
         });
