@@ -10,12 +10,17 @@ class ShoppingCart {
     addItem(product, quantity = 1) {
         const sizeRadio = document.querySelector(`input[name="size-${product.id}"]:checked`);
         const size = sizeRadio ? sizeRadio.value : 'N/A';
-        
+        let adjustedPrice = product.price;
+        if (size === '2XL' || size === '3XL') {
+            adjustedPrice += 100;
+        } else if (size === '4XL' || size === '5XL') {
+            adjustedPrice += 150;
+        }
         const existingItem = this.items.find(item => item.id === product.id && item.size === size);
         if (existingItem) {
             existingItem.quantity += quantity;
         } else {
-            this.items.push({ ...product, quantity: quantity, size: size });
+            this.items.push({ ...product, price: adjustedPrice, quantity: quantity, size: size });
         }
         this.saveCart();
         this.updateCartIcon();
@@ -262,9 +267,10 @@ const products = [
         id: 1,
         name: 'V1.1 T-Shirt',
         price: 400.00,
-        image: 'Photos/V2.1.png',  // You can add your main image here
+        image: 'Photos/elite sizechart.jfif',
         gallery: [
-
+            'Photos/bluecorner sizechart.png',  
+            'Photos/V2.1.png',
         ],
         description: 'Premium quality t-shirt with our organization\'s V2.1 design.',
         category: 'V2'
@@ -273,9 +279,10 @@ const products = [
         id: 2,
         name: 'V1.2 T-Shirt',
         price: 350.00,
-        image: 'Photos/V2.2.png',  // You can add your main image here
+        image: 'Photos/elite sizechart.jfif',
         gallery: [
-
+            'Photos/bluecorner sizechart.png',  
+            'Photos/V2.2.png',
         ],
         description: 'Premium quality t-shirt with our organization\'s V2.2 design.',
         category: 'V2'
@@ -335,7 +342,11 @@ const products = [
         id: 8,
         name: 'ISKOLEHIYO T-SHIRT V 1.1',
         price: 350.00,
-        image: 'Photos/full1.1.png',
+        image: 'Photos/elite sizechart.jfif',
+        gallery: [
+            'Photos/bluecorner sizechart.png',  
+            'Photos/full1.1.png',
+        ],
         description: 'High-quality vinyl sticker featuring the Hirono Uniform design.',
         category: 'ISKOLEHIYO'
     },
@@ -343,7 +354,11 @@ const products = [
         id: 9,
         name: 'ISKOLEHIYO T-SHIRT V 1.2',
         price: 350.00,
-        image: 'Photos/full1.2.png',
+        image: 'Photos/elite sizechart.jfif',
+        gallery: [
+            'Photos/bluecorner sizechart.png',  
+            'Photos/full1.2.png',
+        ],
         description: 'High-quality vinyl sticker featuring the Hirono Airplane design.',
         category: 'ISKOLEHIYO'
     },
@@ -351,10 +366,11 @@ const products = [
         id: 10,
         name: 'ISKOLEHIYO T-SHIRT V 1.3',
         price: 350.00,
-        image: 'Photos/full1.3.png',
+        image: 'Photos/elite sizechart.jfif',
         gallery: [
-            'Photos/full 1.3.png',  // Add close-up view
-
+            'Photos/bluecorner sizechart.png',  
+            'Photos/full1.3.png',
+            'Photos/full 1.3.png',
         ],
         description: 'High-quality vinyl sticker featuring the Hirono Computer Enthusiasts design.',
         category: 'ISKOLEHIYO'
@@ -622,5 +638,36 @@ document.addEventListener('DOMContentLoaded', () => {
                 gallery.show(productId);
             });
         }
+    });
+
+    // Add live price update for size selection
+    document.querySelectorAll('.card').forEach(card => {
+        const priceElem = card.querySelector('.price');
+        if (!priceElem) return;
+        // Store base price as data attribute if not already set
+        if (!priceElem.hasAttribute('data-base-price')) {
+            // Extract base price from text (e.g., '₱400.00')
+            const priceText = priceElem.textContent.replace(/[^\d.]/g, '');
+            priceElem.setAttribute('data-base-price', priceText);
+        }
+        const basePrice = parseFloat(priceElem.getAttribute('data-base-price'));
+        // Find all size radio buttons in this card
+        const sizeRadios = card.querySelectorAll('input[type="radio"][name^="size-"]');
+        sizeRadios.forEach(radio => {
+            radio.addEventListener('change', () => {
+                let newPrice = basePrice;
+                let extra = 0;
+                if (radio.value === '2XL' || radio.value === '3XL') {
+                    extra = 100;
+                } else if (radio.value === '4XL' || radio.value === '5XL') {
+                    extra = 150;
+                }
+                if (extra > 0) {
+                    priceElem.textContent = `₱${basePrice}+${extra}`;
+                } else {
+                    priceElem.textContent = `₱${basePrice}`;
+                }
+            });
+        });
     });
 }); 
