@@ -20,7 +20,13 @@ class ShoppingCart {
         if (existingItem) {
             existingItem.quantity += quantity;
         } else {
-            this.items.push({ ...product, price: adjustedPrice, quantity: quantity, size: size });
+            this.items.push({ 
+                ...product, 
+                price: adjustedPrice, 
+                quantity: quantity, 
+                size: size,
+                image: (product.gallery && product.gallery[1]) ? product.gallery[1] : product.image
+            });
         }
         this.saveCart();
         this.updateCartIcon();
