@@ -399,7 +399,7 @@ const products = [
     },
     {
         id: 13,
-        name: 'AIRPLANE PIN1',
+        name: 'AIRPLANE PIN',
         price: 45.00,
         image: 'Photos/airplanepin.png',
         description: 'Collection of our most popular sticker designs in one set.',
