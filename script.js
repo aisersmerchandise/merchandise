@@ -346,7 +346,7 @@ const products = [
     // ISKOLEHIYO Collection
     {
         id: 8,
-        name: 'ISKOLEHIYO T-SHIRT V 1.1',
+        name: 'ISKOLEHIYO T-SHIRT V1.1',
         price: 350.00,
         image: 'Photos/elite sizechart.jfif',
         gallery: [
@@ -358,7 +358,7 @@ const products = [
     },
     {
         id: 9,
-        name: 'ISKOLEHIYO T-SHIRT V 1.2',
+        name: 'ISKOLEHIYO T-SHIRT V1.2',
         price: 350.00,
         image: 'Photos/elite sizechart.jfif',
         gallery: [
@@ -370,7 +370,7 @@ const products = [
     },
     {
         id: 10,
-        name: 'ISKOLEHIYO T-SHIRT V 1.3',
+        name: 'ISKOLEHIYO T-SHIRT V1.3',
         price: 350.00,
         image: 'Photos/elite sizechart.jfif',
         gallery: [
