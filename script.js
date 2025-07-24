@@ -271,7 +271,7 @@ const products = [
     // PAGLAOM COLLECTION
     {
         id: 1,
-        name: 'V1.1 T-Shirt',
+        name: 'PAGLAOM V1.1 T-Shirt',
         price: 400.00,
         image: 'Photos/elite sizechart.jfif',
         gallery: [
@@ -283,7 +283,7 @@ const products = [
     },
     {
         id: 2,
-        name: 'V1.2 T-Shirt',
+        name: 'PAGLAOM V1.2 T-Shirt',
         price: 350.00,
         image: 'Photos/elite sizechart.jfif',
         gallery: [
