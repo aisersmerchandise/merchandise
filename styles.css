@@ -1107,3 +1107,18 @@ img {
     height: auto;
     opacity: 1 !important;
 } 
+
+/* Navbar Animation */
+.navbar {
+    transition: transform 0.8s ease-out, opacity 0.8s ease-out;
+}
+
+.navbar.fade-up {
+    opacity: 0;
+    transform: translateY(-100%);
+}
+
+.navbar.fade-down {
+    opacity: 1;
+    transform: translateY(0);
+} 

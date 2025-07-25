@@ -739,6 +739,26 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Navbar scroll animation
+    let lastScrollTop = 0;
+    const navbarElement = document.querySelector('.navbar');
+
+    window.addEventListener('scroll', () => {
+        let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        
+        if (scrollTop > lastScrollTop) {
+            // Scrolling down
+            navbarElement.classList.remove('fade-down');
+            navbarElement.classList.add('fade-up');
+        } else {
+            // Scrolling up
+            navbarElement.classList.remove('fade-up');
+            navbarElement.classList.add('fade-down');
+        }
+        
+        lastScrollTop = scrollTop;
+    });
+
     // Initialize scroll animations
     animateOnScroll();
 
