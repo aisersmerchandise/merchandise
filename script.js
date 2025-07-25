@@ -739,24 +739,31 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Navbar scroll animation
+    // Navbar scroll behavior
     let lastScrollTop = 0;
     const navbarElement = document.querySelector('.navbar');
+    const scrollThreshold = 100;
 
     window.addEventListener('scroll', () => {
-        let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
         
-        if (scrollTop > lastScrollTop) {
-            // Scrolling down
-            navbarElement.classList.remove('fade-down');
-            navbarElement.classList.add('fade-up');
+        if (currentScroll > scrollThreshold) {
+            if (currentScroll > lastScrollTop) {
+                // Scrolling down
+                navbarElement.classList.remove('nav-visible');
+                navbarElement.classList.add('nav-hidden');
+            } else {
+                // Scrolling up
+                navbarElement.classList.remove('nav-hidden');
+                navbarElement.classList.add('nav-visible');
+            }
         } else {
-            // Scrolling up
-            navbarElement.classList.remove('fade-up');
-            navbarElement.classList.add('fade-down');
+            // At the top
+            navbarElement.classList.remove('nav-hidden');
+            navbarElement.classList.add('nav-visible');
         }
         
-        lastScrollTop = scrollTop;
+        lastScrollTop = currentScroll;
     });
 
     // Initialize scroll animations

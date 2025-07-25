@@ -1143,13 +1143,24 @@ img {
 /* Mobile Navigation Styles */
 @media (max-width: 768px) {
     .navbar {
-        position: absolute;
+        position: fixed;
+        top: 0;
         left: 0;
         right: 0;
         background: var(--black);
         padding: 1rem;
         border-top: 1px solid rgba(255, 215, 0, 0.1);
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+        transition: transform 0.3s ease;
+    }
+
+    .navbar.nav-hidden {
+        transform: translateY(-100%);
+    }
+
+    .navbar.nav-visible {
+        transform: translateY(0);
     }
 
     .navbar.fixed-top {
