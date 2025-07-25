@@ -18,6 +18,215 @@ body {
     overflow-x: hidden;
 }
 
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInFromLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInFromRight {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -1000px 0;
+    }
+    100% {
+        background-position: 1000px 0;
+    }
+}
+
+/* Apply animations to elements */
+.hero-section {
+    animation: fadeIn 1s ease-out;
+}
+
+.hero-section h1 {
+    animation: slideInFromLeft 1s ease-out 0.3s both;
+}
+
+.hero-section p {
+    animation: slideInFromRight 1s ease-out 0.5s both;
+}
+
+.card {
+    animation: fadeIn 0.8s ease-out;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-primary {
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(255, 255, 255, 0.3),
+        transparent
+    );
+    animation: shimmer 2s infinite linear;
+}
+
+.navbar {
+    transition: background 0.3s ease, padding 0.3s ease;
+}
+
+.navbar-brand {
+    transition: transform 0.3s ease;
+}
+
+.navbar-brand:hover {
+    transform: scale(1.05);
+}
+
+.nav-link {
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: var(--gold);
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+.cart-notification {
+    animation: slideInFromRight 0.3s ease-out, fadeIn 0.3s ease-out;
+}
+
+.cart-count {
+    animation: pulse 1s ease infinite;
+}
+
+.gallery-nav-btn {
+    transition: all 0.3s ease;
+    opacity: 0.7;
+}
+
+.gallery-nav-btn:hover {
+    opacity: 1;
+    transform: translateY(-50%) scale(1.1);
+}
+
+.thumbnail {
+    transition: all 0.3s ease;
+}
+
+.thumbnail:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.form-control {
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.modal.fade .modal-dialog {
+    transform: scale(0.8);
+    opacity: 0;
+    transition: all 0.3s ease-in-out;
+}
+
+.modal.show .modal-dialog {
+    transform: scale(1);
+    opacity: 1;
+}
+
+.cart-item {
+    animation: fadeIn 0.5s ease-out;
+    transition: all 0.3s ease;
+}
+
+.cart-item:hover {
+    background: rgba(255, 215, 0, 0.05);
+}
+
+.size-buttons .btn {
+    transition: all 0.3s ease;
+}
+
+.size-buttons .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.category-panel {
+    transition: all 0.5s ease;
+}
+
+.category-panel:hover {
+    transform: translateY(-10px) scale(1.02);
+}
+
+.category-panel-img {
+    transition: all 0.5s ease;
+}
+
+.category-panel:hover .category-panel-img {
+    transform: scale(1.1);
+}
+
 /* Hero Section */
 .hero-section {
     background: url('Photos/aisers\ banner.png') center/cover no-repeat;
@@ -99,11 +308,13 @@ h2, h3, h4, h5, h6 {
     transform: translateY(-5px);
 }
 
+/* Card Images */
 .card-img-top {
     height: 180px;
     object-fit: cover;
     cursor: zoom-in;
     transition: opacity 0.2s ease;
+    opacity: 1 !important; /* Force images to be visible */
 }
 
 .card-img-top:hover {
@@ -842,4 +1053,57 @@ footer {
     margin-left: 4px;
     text-align: center;
     margin-top: 1rem;
+} 
+
+/* Button Hover Effect */
+.btn {
+    --x: 0px;
+    --y: 0px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    z-index: 1;
+}
+
+.btn::after {
+    content: '';
+    position: absolute;
+    top: var(--y);
+    left: var(--x);
+    width: 150px;
+    height: 150px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 60%);
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.btn:hover::after {
+    opacity: 1;
+}
+
+/* Loading Animation */
+@keyframes loadingPulse {
+    0% {
+        background-color: rgba(0, 0, 0, 0.1);
+    }
+    50% {
+        background-color: rgba(0, 0, 0, 0.2);
+    }
+    100% {
+        background-color: rgba(0, 0, 0, 0.1);
+    }
+}
+
+/* Remove problematic loading animation */
+img:not([src]), img[src=""] {
+    min-height: 100px;
+    background-color: rgba(0, 0, 0, 0.1);
+} 
+
+/* Update image styles */
+img {
+    max-width: 100%;
+    height: auto;
+    opacity: 1 !important;
 } 
